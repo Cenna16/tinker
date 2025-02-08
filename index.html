@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Care Guide</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Planto🍃</h1>
+        <p>Select a plant to see its optimal care conditions.</p>
+    </header>
+    <label for="category">Choose a category:</label>
+    <select id="category" onchange="updateOptions()">
+        <option value="">-- Select --</option>
+        <option value="fruits">Fruits</option>
+        <option value="vegetables">Vegetables</option>
+    </select>
+
+    <label for="items">Choose an item:</label>
+    <select id="items">
+        <option value="">-- Select --</option>
+    </select>
+    <section>
+        <div class="container">
+            <label for="main-options">Choose a plant:</label>
+            <select id="main-options">
+                <option value="">--Select an option--</option>
+                <option value="Trees">Trees</option>
+                <option value="Shrubs">Shrubs</option>
+                <option value="Flowers">Flowers</option>
+            </select>
+    </section>
+    
+            <div id="trees-options" class="nested-options" style="display:none;">
+                <label for="tree-type">Choose a tree:</label>
+                <select id="tree-type">
+                    <option value="mango">Mango</option>
+                    <option value="neem">Neem</option>
+                    <option value="pine">Pine</option>
+                    <option value="bamboo">Bamboo</option>
+                </select>
+            </div>
+
+            <div id="shrubs-options" class="nested-options" style="display:none;">
+                <label for="shrub-type">Choose a shrub:</label>
+                <select id="shrub-type">
+                    <option value="henna">Henna</option>
+                    <option value="lemon">lemon</option>
+                    <option value="tulsi">Tulsi</option>
+                    <option value="maple">Maple</option>
+                </select>
+            </div>
+             
+             
+            <div id="flowers-options" class="nested-options" style="display:none;">
+                <label for="flower-type">Choose a flower:</label>
+                <select id="flower-type">
+                    <option value="jasmine">Jasmine</option>
+                    <option value="rose">Rose</option>
+                    <option value="hibiscus">Hibiscus</option>
+                    <option value="marigold">Marigold</option>
+                </select>
+            </div>}
+        </div>    
+
+    <section id="plantInfo">
+        <h2>Plant Details</h2>
+        <p id="soilType"></p>
+        <p id="waterSchedule"></p>
+        <p id="funFact"></p>
+        <img id="cuteCharacter" src="cute-character.png" alt="Cute Plant Character">
+    </section>
+
+    <button id="waterReminder">Set Watering Reminder</button>
+    <button id="darkModeToggle">🌙 Toggle Dark Mode</button>
+    <script src="script.js"></script>
+    <style>body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f0f8ff;
+}
+
+header {
+    background-color: #6a994e;
+    color: white;
+    padding: 20px;
+}
+
+section {
+    margin: 20px;
+}
+
+button {
+    background-color: #ffcc00;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#cuteCharacter {
+    width: 150px;
+    margin-top: 20px;
+}</style>
+    <!-- <script>document.getElementById("plantInfo").addEventListener("change", function() {
+    const plant = this.value;
+    const soilType = document.getElementById("soilType");
+    const waterSchedule = document.getElementById("waterSchedule");
+    const funFact = document.getElementById("funFact");
+
+    const plantData = {
+        succulent: {
+            soil: "Well-draining cactus soil.",
+            water: "Water once every two weeks.",
+            fact: "Succulents store water in their leaves!"
+        },
+        rose: {
+            soil: "Loamy soil with good drainage.",
+            water: "Water every 2-3 days.",
+            fact: "Roses have been around for over 35 million years!"
+        },
+        orchid: {
+            soil: "Bark-based orchid mix.",
+            water: "Water once a week.",
+            fact: "Orchids can live for decades if cared for properly!"
+        }
+    };
+
+    if (plantData[plant]) {
+        soilType.textContent = "Soil Type: " + plantData[plant].soil;
+        waterSchedule.textContent = "Watering: " + plantData[plant].water;
+        funFact.textContent = "Fun Fact: " + plantData[plant].fact;
+    } else {
+        soilType.textContent = "";
+        waterSchedule.textContent = "";
+        funFact.textContent = "";
+    }
+});
+
+document.getElementById("waterReminder").addEventListener("click", function() {
+    alert("Don't forget to water your plant!");
+});
+// Check if notifications are allowed
+if (Notification.permission === "default") {
+    Notification.requestPermission();
+}
+
+document.getElementById("waterReminder").addEventListener("click", function() {
+    if (Notification.permission === "granted") {
+        new Notification("💧 Time to water your plant!", {
+            body: "Stay consistent to keep your plant healthy!",
+            icon: "cute-character.png"
+        });
+    } else {
+        alert("Enable notifications to receive watering reminders!");
+    }
+});
+const funFacts = [
+    "Plants release oxygen and purify the air!",
+    "Some plants can recognize their siblings!",
+    "Bananas are actually classified as herbs!",
+    "Aloe Vera can survive for months without water!"
+];
+
+function showRandomFunFact() {
+    const funFact = document.getElementById("funFact");
+    funFact.textContent = "Fun Fact: " + funFacts[Math.floor(Math.random() * funFacts.length)];
+    funFact.style.animation = "fadeIn 0.5s ease-in-out";
+}
+
+// Show a new fun fact every 10 seconds
+setInterval(showRandomFunFact, 10000);
+const reminderButton = document.getElementById("waterReminder");
+
+// Add sound effect
+const dingSound = new Audio("ding.mp3");
+
+reminderButton.addEventListener("click", function() {
+    if (Notification.permission === "granted") {
+        new Notification("💧 Time to water your plant!", {
+            body: "Stay consistent to keep your plant healthy!",
+            icon: "cute-character.png"
+        });
+        dingSound.play(); // Play sound when notification appears
+    } else {
+        alert("Enable notifications to receive watering reminders!");
+    }
+});
+const darkModeToggle = document.getElementById("darkModeToggle");
+
+darkModeToggle.addEventListener("click", function() {
+    document.body.classList.toggle("dark-mode");
+    document.querySelector("header").classList.toggle("dark-mode");
+
+    // Save user preference
+    localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+});
+
+// Load user preference on page refresh
+if (localStorage.getItem("darkMode") === "true") {
+    document.body.classList.add("dark-mode");
+    document.querySelector("header").classList.add("dark-mode");
+}</script> -->
+    
+</body>
+</html>
